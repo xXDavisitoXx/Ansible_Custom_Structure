@@ -13,7 +13,7 @@ ssh-copy-id -i ~/.ssh/Ansible.key ansible@192.168.100.113
 
 Create namespace.colection estructure
 ```bash
-ansible-galaxy collection init Homelab.Updater-debian
+ansible-galaxy collection init Homelab.Updater
 ```
 ```text
 .
@@ -27,7 +27,7 @@ ansible-galaxy collection init Homelab.Updater-debian
 ```
 create rour diferent roles (category OS example)
 ```bash
-cd Homelab/updatedater
+cd Homelab/Updater
 ansible-galaxy role init roles/debian
 ```
 
@@ -61,16 +61,39 @@ ansible-galaxy role init roles/debian
 ```
 create your diferent tasks:
 ```bash
+cd roles/debian/tasks
 nano update.yml
 nano dist-upgrade.yml
 nano autoremove.yml
 nano autoclean.yml
 ```
-Create collections home and move updater
+add your tasks to main.yml task:
+```yml
+---
+# tasks file for roles/debian
+- name: Update APT cache
+  ansible.builtin.import_tasks: update.yml
+
+- name: Upgrade system packages
+  ansible.builtin.import_tasks: dist-upgrade.yml
+
+- name: Remove unused packages
+  ansible.builtin.import_tasks: autoremove.yml
+
+- name: Clean APT cache
+  ansible.builtin.import_tasks: autoclean.yml
+
+- name: Check pending system reboot
+  ansible.builtin.import_tasks: reboot-check.yml
+
+- name: Handle system reboot if needed
+  ansible.builtin.import_tasks: reboot.yml
+```
+Create collections home and move updater to collections default home ansible
 
 ```bash
-mkdir -p /srv/Homelab/ansible_collections/homelab/updater
-mv /srv/Homelab/Updater /srv/Homelab/ansible_collections/homelab/updater/
+mkdir -p ~/Homelab/ansible_collections/homelab/updater
+mv ~/Homelab/Updater /srv/Homelab/ansible_collections/homelab/updater/
 ```
 Create inventory file
 
@@ -123,7 +146,7 @@ ansible ansible_host=192.168.100.112
 # ==========================================
 [all:vars]
 ansible_user=ansible
-ansible_ssh_private_key_file=/root/.ssh/Ansible.key
+ansible_ssh_private_key_file=~/.ssh/Ansible.key
 ansible_become=true
 ansible_become_method=sudo
 ```
