@@ -140,6 +140,9 @@ reboot.yml
   when: reboot_result is changed
   ```
 add your tasks to main.yml task:
+```bash
+nano main.yml
+```
 ```yml
 ---
 # tasks file for roles/debian
