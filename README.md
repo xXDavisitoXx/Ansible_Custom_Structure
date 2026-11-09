@@ -75,7 +75,6 @@ ansible_user=ansible
 ansible_ssh_private_key_file=/root/.ssh/Ansible.key
 ansible_become=true
 ansible_become_method=sudo
-root@Ansible:/srv/Homelab# 
 ```
 
 define ansible.cfg in your root namespace
