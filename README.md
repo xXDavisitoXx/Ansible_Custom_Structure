@@ -77,11 +77,25 @@ ansible_become=true
 ansible_become_method=sudo
 ```
 
+create .vault-pass in your root namespace and insert your master key
+```bash
+echo 'YOUR-PASS' > .vault-ansible
+```
+
+create your vault for group hosts:
+```bash
+echo 'ansible_become_pass: "YOUR-PASS"' > inventory/group_vars/debian/vault-debian.yml
+```
+
+crypt file
+```bash
+ ansible-vault encrypt inventory/group_vars/vault-debian.yml
+```
+
 define ansible.cfg in your root namespace
 ```bash
 nano ansible.cfg
 ```
-
 ```conf
 defaults]
 # Ruta principal donde Ansible busca las colecciones (debe apuntar al directorio padre de ansible_collections)
@@ -97,7 +111,7 @@ host_key_checking = False
 retry_files_enabled = False
 
 # Si usas un archivo maestro para desbloquear los vaults de forma autom  tica:
-vault_password_file = .vault-pass
+vault_password_file = .vault-ansible
 ```
 
 
