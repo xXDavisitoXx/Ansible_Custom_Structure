@@ -180,7 +180,6 @@ nano inventory/hosts
 ```
 example:
 ```conf
-root@Ansible:/srv/Homelab# cat inventory/hosts 
 # ==========================================
 # DEBIAN
 # ==========================================
@@ -252,7 +251,7 @@ define ansible.cfg in your root namespace
 nano ansible.cfg
 ```
 ```conf
-defaults]
+[defaults]
 # Ruta principal donde Ansible busca las colecciones (debe apuntar al directorio padre de ansible_collections)
 collections_path = /srv/Homelab/
 
