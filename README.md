@@ -15,6 +15,57 @@ Create namespace.colection estructure
 ```bash
 ansible-galaxy collection init Homelab.Updater-debian
 ```
+```text
+.
+|-- README.md
+|-- docs
+|-- galaxy.yml
+|-- meta
+|   `-- runtime.yml
+|-- plugins
+    `-- README.md
+```
+create rour diferent roles (category OS example)
+```bash
+cd Homelab/updatedater
+ansible-galaxy role init roles/debian
+```
+
+```bash
+.
+|-- README.md
+|-- docs
+|-- galaxy.yml
+|-- meta
+|   `-- runtime.yml
+|-- plugins
+|   `-- README.md
+`-- roles
+    `-- debian
+        |-- README.md
+        |-- defaults
+        |   `-- main.yml
+        |-- files
+        |-- handlers
+        |   `-- main.yml
+        |-- meta
+        |   `-- main.yml
+        |-- tasks
+        |   |-- main.yml
+        |-- templates
+        |-- tests
+        |   |-- inventory
+        |   `-- test.yml
+        `-- vars
+            `-- main.yml
+```
+create your diferent tasks:
+```bash
+nano update.yml
+nano dist-upgrade.yml
+nano autoremove.yml
+nano autoclean.yml
+```
 Create collections home and move updater
 
 ```bash
