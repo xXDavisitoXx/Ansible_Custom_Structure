@@ -263,7 +263,7 @@ vault_password_file = .vault-ansible
 Host 
 
 ```bash
-apt install sudo 
+apt install openssh-server sudo 
 ```
 ```bash
 useradd -m -s /bin/bash ansiblev
