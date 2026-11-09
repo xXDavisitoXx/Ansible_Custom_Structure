@@ -67,6 +67,76 @@ nano dist-upgrade.yml
 nano autoremove.yml
 nano autoclean.yml
 ```
+
+update.yml 
+```yml
+---
+- name: Update APT package cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+ ```
+dist-upgrade.yml 
+```yml
+---
+- name: Upgrade installed packages
+  ansible.builtin.apt:
+    upgrade: dist
+  become: true
+ ```
+autoremove.yml  
+```yml
+---
+- name: Remove unused packages and purge configuration
+  ansible.builtin.apt:
+    autoremove: true
+    purge: true
+  become: true
+ ```
+autoclean.yml 
+```yml
+---
+- name: Clean obsolete APT package archives
+  ansible.builtin.apt:
+    autoclean: true
+  become: true
+ ```
+reboot-check.yml
+```yml 
+- name: Check if a system reboot is required by Debian
+  stat:
+    path: /var/run/reboot-required
+  register: reboot_file
+
+- name: Notify administrator if reboot is pending
+  debug:
+    msg: "⚠️ ATENCIÓN: El servidor {{ inventory_hostname }} requiere un reinicio para aplicar actualizaciones críticas del kernel o librerías."
+ ```
+reboot.yml 
+```yml 
+---
+- name: Check if a system reboot is required
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+  register: reboot_required_file
+
+- name: Reboot the Debian server if required
+  ansible.builtin.reboot:
+    msg: "🔄 Reiniciando el sistema por actualización pendiente del kernel gestionada por Ansible."
+    connect_timeout: 5
+    reboot_timeout: 300
+    pre_reboot_delay: 0
+    post_reboot_delay: 30
+    test_command: uptime
+  when: reboot_required_file.stat.exists
+  register: reboot_result
+
+- name: Notify administrator that reboot was performed
+  ansible.builtin.debug:
+    msg: "✅ El servidor {{ inventory_hostname }} se ha reiniciado correctamente y vuelve a estar operativo."
+  when: reboot_result is changed
+  ```
 add your tasks to main.yml task:
 ```yml
 ---
