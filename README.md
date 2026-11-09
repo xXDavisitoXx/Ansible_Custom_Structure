@@ -183,28 +183,28 @@ example:
 # ==========================================
 # DEBIAN
 # ==========================================
-[debian]
+[Debian_Servers]
 debian1 ansible_host=192.168.100.113
 
 
 # ==========================================
 # ALMALINUX
 # ==========================================
-[alma]
+[Alma_Servers]
 alma ansible_host=192.168.100.114
 
 
 # ==========================================
 # SUSE
 # ==========================================
-[suse]
+[Suse_Servers]
 suse ansible_host=192.168.100.115
 
 
 # ==========================================
 # ARCH LINUX
 # ==========================================
-[arch]
+[Arch_Servers]
 arch ansible_host=192.168.100.116
 
 
@@ -220,7 +220,7 @@ ansible ansible_host=192.168.100.112
 # ==========================================
 [all:vars]
 ansible_user=ansible
-ansible_ssh_private_key_file=~/.ssh/Ansible.key
+ansible_ssh_private_key_file=/root/.ssh/Ansible.key
 ansible_become=true
 ansible_become_method=sudo
 ```
@@ -279,7 +279,7 @@ nano PlayBooks/Updater-Debian.yml
 ```yml
 ---
 - name: Update Debian servers
-  hosts: debian
+  hosts: Debian_Servers  
   become: true
   gather_facts: true
 
