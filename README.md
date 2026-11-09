@@ -238,7 +238,8 @@ chown root:root /srv/Homelab/.vault-ansible
 
 Create your vault for group hosts:
 ```bash
-echo 'ansible_become_pass: "YOUR-PASS"' > inventory/group_vars/debian/vault-debian.yml
+mkdir -p inventory/group_vars/Debian_Servers
+echo 'ansible_become_pass: "YOUR-PASS"' > inventory/group_vars/Debian_Servers/vault-debian.yml
 ```
 
 🔑 Encrypt the password file
