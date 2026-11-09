@@ -268,7 +268,34 @@ retry_files_enabled = False
 vault_password_file = .vault-ansible
 ```
 
+Create your PlayBooks
+In your root project
+```bash
+mkdir PlayBooks
+```
+```bash
+nano PlayBooks/Updater-Debian.yml
+```
+```yml
+---
+- name: Update Debian servers
+  hosts: debian
+  become: true
+  gather_facts: true
 
+  roles:
+    - homelab.updater.debian
+```
+
+Test your PlayBook: 
+```bash
+ansible-playbook PlayBooks/update-debian.yml --syntax-check
+```
+
+Execute playbook
+```bash
+ansible-playbook PlayBooks/update-debian.yml
+```
 
 Host 
 
