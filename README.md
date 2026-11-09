@@ -266,7 +266,7 @@ Host
 apt install openssh-server sudo 
 ```
 ```bash
-useradd -m -s /bin/bash ansiblev
+useradd -m -s /bin/bash ansible
 passwd ansible
 ```
 ```bash
