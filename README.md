@@ -87,7 +87,7 @@ create your vault for group hosts:
 echo 'ansible_become_pass: "YOUR-PASS"' > inventory/group_vars/debian/vault-debian.yml
 ```
 
-crypt file
+encrypt the password file
 ```bash
  ansible-vault encrypt inventory/group_vars/vault-debian.yml
 ```
