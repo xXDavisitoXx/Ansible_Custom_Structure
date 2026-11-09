@@ -66,6 +66,8 @@ nano update.yml
 nano dist-upgrade.yml
 nano autoremove.yml
 nano autoclean.yml
+nano reboot-check.yml
+nano reboot.yml
 ```
 
 update.yml 
