@@ -226,17 +226,23 @@ ansible_become=true
 ansible_become_method=sudo
 ```
 
-create .vault-pass in your root namespace and insert your master key
+Create .vault-ansible for unlock vaults in your root namespace and insert your master key
 ```bash
 echo 'YOUR-PASS' > .vault-ansible
 ```
 
-create your vault for group hosts:
+🛡️ Protect the master file
+```bash
+chmod 600 /srv/Homelab/.vault-ansible
+chown root:root /srv/Homelab/.vault-ansible
+```
+
+Create your vault for group hosts:
 ```bash
 echo 'ansible_become_pass: "YOUR-PASS"' > inventory/group_vars/debian/vault-debian.yml
 ```
 
-encrypt the password file
+🔑 Encrypt the password file
 ```bash
  ansible-vault encrypt inventory/group_vars/vault-debian.yml
 ```
